@@ -1,0 +1,170 @@
+/*********/
+/* sizes */
+/*********/
+
+html, body {
+	height: 100%;
+    width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+#frame {
+    width: 1000px;
+    height: 100%;
+}
+
+.viewable {
+    cursor: crosshair;
+}
+
+.takable {
+    cursor: grab;
+}
+
+.take {
+    cursor: move;
+}
+
+#img-view,
+#svg-view {
+    width: 1000px;
+    height: 750px;
+}
+
+#img-view {
+    position: block;
+    top:0;
+    left: 0;
+}
+
+#svg-view {
+    position: absolute;
+    top:0;
+    left: 0;
+}
+
+#button-close-map {
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+#button-go-forward {
+    margin-top: 20px;
+    border-top: 1px solid lightgray;
+    border-left: 1px solid white;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid white;
+}
+
+#button-go-right {
+    margin-right: 20px;
+}
+
+#button-go-back {
+    margin-bottom: 20px;
+}
+
+#button-go-left {
+    margin-left: 20px;
+}
+
+#img-fund {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    width: 80px;
+    height: 60px;
+}
+
+#panel-actions,
+#panel-item-inventory {
+    height: 100%;
+}
+
+#panel-item-inventory {
+    padding-left: 20px;
+}
+
+#quests {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#quests li {
+    margin-bottom: 5px;
+}
+
+.quest-image {
+    width: 50px;
+    border: 1px solid lightgray;
+}
+
+.quest-text {
+    padding-left: 10px;
+}
+
+#item-image {
+    width: 400px;
+    height: 300px;
+    border: 1px solid lightgray;
+}
+
+#item-description {
+    padding-left: 10px;
+    margin-top: 0;
+}
+
+#items {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#items img {
+    height: 50px;
+    width: 50px;
+}
+
+#items li {
+    display: inline-block;
+    padding-right: 5px;
+}
+
+.item-inventory-placeholder {
+    border: 1px solid #ddffff;
+    width: 50px;
+    height: 50px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.button-close-dialog {
+    border-radius: 0 4px 0 0;
+}
+
+.dialog-header {
+    border-radius: 4px 4px 0 0;
+    border-bottom: 1px solid lightgray;
+}
+
+.dialog-body {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+/**********/
+/* colors */
+/**********/
+
+html, body {
+	font-family: Verdana, Arial;
+	color: #333333;
+}
+ 
+
+/**************/
+/* visibility */
+/**************/
+
+

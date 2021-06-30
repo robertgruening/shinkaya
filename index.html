@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<!-- javascript frameworks etc. -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui/jquery-ui.js"></script>
+	<script type="text/javascript" src="js/solid.min.js"></script>
+	<script type="text/javascript" src="js/regular.min.js"></script>
+    <!-- page -->
+	<script type="text/javascript" src="js/app.js"></script>
+    <!-- game config -->
+	<script type="text/javascript" src="game.json"></script>
+
+	<!-- javascript frameworks etc. -->
+	<link rel="stylesheet" type="text/css" href="js/jquery-ui/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="css/w3.css" />
+	<link rel="stylesheet" type="text/css" href="css/solid.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/regular.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/fontawesome.min.css" />
+	<!-- page -->
+	<link rel="stylesheet" type="text/css" href="css/page.css" />
+	<title>AG Archäologie Fürth - Abenteuerspiel</title>
+</head>
+
+<body class="w3-black">
+    <div id="frame">
+        <div id="view" class="w3-display-container">
+            <img id="img-view" src="images/hq_treppe.jpg"/>
+            <div id="markers" class="w3-display-topleft"></div>
+            <div class="w3-display-topmiddle">
+                <a id="button-go-forward" title="vorwärts" class="w3-button w3-round button-go-to"><i class="fas fa-caret-up"></i></a>
+            </div>
+            <div class="w3-display-topright">
+                <input id="button-close-map" type="button" value="&times;" class="w3-button w3-pale-blue w3-hover-indigo w3-round"/>
+            </div>
+            <div class="w3-display-left">
+                <a id="button-go-left" title="links" class="w3-button w3-round button-go-to"><i class="fas fa-caret-left"></i></a>
+            </div>
+            <div class="w3-display-right">
+                <a id="button-go-right" title="rechts" class="w3-button w3-round button-go-to"><i class="fas fa-caret-right"></i></a>
+            </div>
+            <div class="w3-display-middle">
+                <img id="img-fund" src="" class="item"/>
+            </div>
+            <div class="w3-display-bottommiddle">
+                <a id="button-go-back" title="zurück" class="w3-button w3-round button-go-to"><i class="fas fa-caret-down"></i></a>
+            </div>
+        </div>
+        <div class="w3-display-container w3-row w3-panel">
+            <div id="panel-actions" class="w3-col s6">
+                <a id="button-open-map" title="Karte" class="w3-button w3-pale-blue w3-hover-indigo w3-round"><i class="far fa-map"></i></a>
+                <a id="button-open-quests" title="Aufgaben" class="w3-button w3-pale-blue w3-hover-indigo w3-round"><i class="fas fa-tasks"></i></a>
+                <a id="button-view" title="ansehen" class="w3-button w3-pale-blue w3-hover-indigo w3-round"><i class="far fa-eye"></i></a>
+                <a id="button-take" title="nehmen" class="w3-button w3-pale-blue w3-hover-indigo w3-round"><i class="far fa-hand-paper"></i></a>
+            </div>
+            <div id="panel-item-inventory" class="w3-col s6">
+                <ul id="items"></ul>
+            </div>
+        </div>
+        <div id="modal-quests" class="w3-modal">
+            <div class="w3-modal-content w3-white w3-card-4 w3-round">
+                <header class="w3-container w3-display-container w3-light-gray dialog-header">
+                    <span id="button-close-quests" class="w3-button w3-display-topright button-close-dialog">&times;</span>
+                    <h3>Aufgaben</h3>
+                </header>
+                <div class="w3-container dialog-body">                    
+                    <ul id="quests"></ul>
+                </div>
+            </div>
+        </div>
+        <div id="modal-item-info" class="w3-modal">
+            <div class="w3-modal-content w3-white w3-card-4 w3-round">
+                <header class="w3-container w3-display-container w3-light-gray dialog-header">
+                    <span id="button-close-item-info" class="w3-button w3-display-topright button-close-dialog">&times;</span>
+                    <h3>Details</h3>
+                </header>
+                <div class="w3-container dialog-body">
+                    <div class="w3-row">
+                        <div class="w3-col" style="width:400px;">
+                            <img id="item-image" class="w3-round"/>
+                        </div>
+                        <div class="w3-rest">
+                            <p id="item-description"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
