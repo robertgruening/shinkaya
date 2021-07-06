@@ -4,153 +4,169 @@
 
 html, body {
 	height: 100%;
-    width: 100%;
+	width: 100%;
 	margin: 0px;
 	padding: 0px;
 }
 
 #frame {
-    width: 1000px;
-    height: 100%;
+	width: 1000px;
+	height: 100%;
 }
 
 .viewable {
-    cursor: crosshair;
+	cursor: crosshair;
 }
 
 .takable {
-    cursor: grab;
+	cursor: grab;
 }
 
 .take {
-    cursor: move;
+	cursor: move;
 }
 
 #img-view,
 #svg-view {
-    width: 1000px;
-    height: 750px;
+	width: 1000px;
+	height: 750px;
 }
 
 #img-view {
-    position: block;
-    top:0;
-    left: 0;
+	position: block;
+	top:0;
+	left: 0;
 }
 
 #svg-view {
-    position: absolute;
-    top:0;
-    left: 0;
+	position: absolute;
+	top:0;
+	left: 0;
 }
 
 #button-close-map {
-    margin-top: 20px;
-    margin-right: 20px;
+	margin-top: 20px;
+	margin-right: 20px;
 }
 
 #button-go-forward {
-    margin-top: 20px;
-    border-top: 1px solid lightgray;
-    border-left: 1px solid white;
-    border-right: 1px solid lightgray;
-    border-bottom: 1px solid white;
+	margin-top: 20px;
 }
 
 #button-go-right {
-    margin-right: 20px;
+	margin-right: 20px;
 }
 
 #button-go-back {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 #button-go-left {
-    margin-left: 20px;
-}
-
-#img-fund {
-    margin-left: 20px;
-    margin-bottom: 20px;
-    width: 80px;
-    height: 60px;
+	margin-left: 20px;
 }
 
 #panel-actions,
 #panel-item-inventory {
-    height: 100%;
+	height: 100%;
 }
 
 #panel-item-inventory {
-    padding-left: 20px;
+	padding-left: 20px;
 }
 
 #quests {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
-#quests li {
-    margin-bottom: 5px;
-}
+	#quests li {
+		margin-bottom: 5px;
+	}
 
 .quest-image {
-    width: 50px;
-    border: 1px solid lightgray;
+	width: 50px;
+	border: 1px solid lightgray;
 }
 
 .quest-text {
-    padding-left: 10px;
+	padding-left: 10px;
 }
 
 #item-image {
-    width: 400px;
-    height: 300px;
-    border: 1px solid lightgray;
+	width: 400px;
+	height: 300px;
+	border: 1px solid lightgray;
 }
 
 #item-description {
-    padding-left: 10px;
-    margin-top: 0;
+	padding-left: 10px;
+	margin-top: 0;
 }
 
-#items {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+#item-inventory {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
 }
 
-#items img {
-    height: 50px;
-    width: 50px;
-}
+	#item-inventory img {
+		height: 50px;
+		width: 50px;
+	}
 
-#items li {
-    display: inline-block;
-    padding-right: 5px;
-}
+	#item-inventory li {
+		display: inline-block;
+		padding-right: 5px;
+	}
 
 .item-inventory-placeholder {
-    border: 1px solid #ddffff;
-    width: 50px;
-    height: 50px;
-    background-repeat: no-repeat;
-    background-size: contain;
+	border: 1px solid #ddffff;
+	width: 50px;
+	height: 50px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
 }
 
 .button-close-dialog {
-    border-radius: 0 4px 0 0;
+	border-radius: 0 4px 0 0;
 }
 
+.w3-modal-content {
+	background-color: rgba(211, 255, 255, 0.8);
+	color: black;
+}
+
+	.w3-modal-content i {
+		background-color: white;
+		color: darkblue;
+		padding: 5px;
+	}
+
 .dialog-header {
-    border-radius: 4px 4px 0 0;
-    border-bottom: 1px solid lightgray;
+	border-radius: 4px 4px 0 0;
+	--border-bottom: 1px solid lightgray;
 }
 
 .dialog-body {
-    padding-top: 16px;
-    padding-bottom: 16px;
+	padding-top: 16px;
+	padding-bottom: 16px;
+}
+.dialog-footer {
+	border-radius: 0 0 4px 4px;
+	--border-top: 1px solid lightgray;
+}
+
+.view-mode__active #img-view,
+.take-mode__active #img-view {
+	filter: blur(5px);
+}
+
+.view-mode__active .object,
+.view-mode__active .viewable,
+.take-mode__active .takable {
+	background-color: rgba(255, 255, 255, 0.5);
 }
 
 /**********/
