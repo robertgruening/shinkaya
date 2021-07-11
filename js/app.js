@@ -17,8 +17,12 @@ $(document).ready(function() {
 
 	$("#button-view").click(function() { switchMode("view"); });
 	$("#button-take").click(function() { switchMode("take"); });
+
 	$("#button-close-item-info").click(function() { $("#modal-item-info").hide(); });
 	$("#button-ok-item-info").click(function() { $("#modal-item-info").hide(); });
+
+	$("#button-close-object-info").click(function() { $("#modal-object-info").hide(); });
+	$("#button-ok-object-info").click(function() { $("#modal-object-info").hide(); });
 
 	_foundItemNames = new Array();
 	_currentGame = _config;
@@ -31,16 +35,13 @@ $(document).ready(function() {
 
 function switchMode(newMode) {
 	// reset view
-	$("#view").removeClass("view-mode__active");
-	$("#view").removeClass("take-mode__active");
+	$("#view").removeClass("mode__default");
+	$("#view").removeClass("mode__view");
+	$("#view").removeClass("mode__take");
 
-	// reset viewables
+	// reset event 'click'
 	$(".viewable").off("click");
-	$(".viewable").removeClass("viewable");
-
-	// reset takables
 	$(".takable").off("click");
-	$(".takable").removeClass("takable");
 
 	// reset button view
 	$("#button-view").removeClass("w3-indigo");
@@ -56,21 +57,23 @@ function switchMode(newMode) {
 		_viewMode != "view") {
 		$("#button-view").removeClass("w3-pale-blue");
 		$("#button-view").addClass("w3-indigo");
-		$("#view").addClass("view-mode__active");
-		$(".item, .item-inventory-placeholder__in-use").addClass("viewable");
-		$(".viewable").click(function() { openItemInfo($(this).attr("item-name")); });
+		$("#view").addClass("mode__view");
+		$(".viewable.item").click(function() { openItemInfo($(this).attr("item-name")); });
+		$(".viewable.object").click(function() { openObjectInfo($(this).attr("object-name")); });
 		_viewMode = "view";
 	}
 	else if (newMode == "take" &&
 			_viewMode != "take") {
 		$("#button-take").removeClass("w3-pale-blue");
 		$("#button-take").addClass("w3-indigo");
-		$("#view").addClass("take-mode__active");
-		$(".item").addClass("takable");
+		$("#view").addClass("mode__take");
 		$(".takable").click(function() { takeItem($(this).attr("item-name")); });
 		_viewMode = "take";
 	}
 	else {
+		$("#view").addClass("mode__default");
+		$(".viewable.item").click(function() { openItemInfo($(this).attr("item-name")); });
+		$(".viewable.object").click(function() { openObjectInfo($(this).attr("object-name")); });
 		_viewMode = "default";
 	}
 }
@@ -96,9 +99,12 @@ function initItemInventory() {
 		if (containsFoundItemByName(item.name)) {
 			div.addClass("w3-pale-blue");
 			div.addClass("w3-border-indigo");
-			div.addClass("item-inventory-placeholder__in-use");
-			div.attr("style", "background-image: url('images/" + item.name + ".png');");
-			div.attr("item-name", item.name);
+			div.addClass("item");
+			div.addClass("viewable");
+			div.attr({
+				"style": "background-image: url('images/" + item.name + ".png');",
+				"item-name": item.name
+			});
 		}
 		else {
 			div.addClass("w3-border-pale-blue");
@@ -231,10 +237,18 @@ function openItemInfo(itemName) {
 	$("#item-description").html(item.description);
 }
 
+function openObjectInfo(objectName) {
+	$("#modal-object-info").show();
+	var object = findObjectByName(objectName);
+
+	$("#object-description").html(object.description);
+}
+
 function takeItem(itemName) {
 	_foundItemNames.push(itemName);
 	$("#item" + itemName).remove();
 	initItemInventory();
+	switchMode("default");
 }
 
 function show(placeName) {
@@ -281,6 +295,7 @@ function show(placeName) {
 	}
 
 	enableButtonOpenMap();
+	switchMode("default");
 }
 
 function createItems(itemNames) {
@@ -304,6 +319,8 @@ function createItem(itemName) {
 	img.addClass("w3-display-topleft");
 	img.addClass("w3-round");
 	img.addClass("item");
+	img.addClass("viewable");
+	img.addClass("takable");
 	img.css({
 		"margin-top": item.top - height / 2,
 		"margin-left": item.left - width / 2,
@@ -326,9 +343,11 @@ function createObject(objectName) {
 	let height = 100;
 	
 	let div = $("<div></div>");
+	div.attr("object-name", object.name);
 	div.addClass("w3-display-topleft");
 	div.addClass("w3-round");
 	div.addClass("object");
+	div.addClass("viewable");
 	div.css({
 		"margin-top": object.top - height / 2,
 		"margin-left": object.left - width / 2,

@@ -57,7 +57,7 @@
 				<a id="button-take" title="nehmen" class="w3-button w3-pale-blue w3-hover-indigo w3-round"><i class="far fa-hand-paper"></i></a>
 			</div>
 			<div id="panel-item-inventory" class="w3-col s6">
-				<ul id="item-inventory"></ul>
+				<ul id="item-inventory" class="mode__default"></ul>
 			</div>
 		</div>
 		<div id="modal-quests" class="w3-modal">
@@ -99,6 +99,22 @@
 				</footer>
 			</div>
 		</div>
+		<div id="modal-object-info" class="w3-modal">
+			<div class="w3-modal-content w3-card-4 w3-round">
+				<header class="w3-container w3-display-container dialog-header">
+					<span id="button-close-object-info" class="w3-button w3-white w3-hover-indigo w3-display-topright button-close-dialog">&times;</span>
+					<h3>Details</h3>
+				</header>
+				<div class="w3-container dialog-body">
+					<p id="object-description"></p>
+				</div>
+				<footer class="w3-container dialog-footer">
+					<div class="w3-panel w3-bar">
+						<a id="button-ok-object-info" title="OK" class="w3-button w3-white w3-hover-indigo w3-round w3-right">OK</a>
+					</div>
+				</footer>
+			</div>
+		</div>
 		<div id="modal-about" class="w3-modal">
 			<div class="w3-modal-content w3-card-4 w3-round">
 				<header class="w3-container w3-display-container dialog-header">
@@ -106,16 +122,26 @@
 					<h3>Erklärung</h3>
 				</header>
 				<div class="w3-container dialog-body">
-					<p>In diesem "Point & Click Adventure"-Spiel geht es darum, Aufgaben zu lösen. Die Aufgaben bestehen darin, Gegenstände einzusammeln.
-						Die Suche nach diesen Gegenständen, beginnt die Spielerin / der Spieler, indem sie / er auf der Karte einen Ort auswählt. Anschließend
-						befindet sich die Spielerin / der Spieler am Ausgangspunkt dieses Ortes und kann mit Hilfe der Navigationsbuttons den Ort erkunden.
-						In den Ortsszenen können Gegenstände angezeigt werden. Die Spielerin / der Spieler diese Gegenstände anklicken, um über diese etwas 
-						zu erfahren. Bestimmte Gegenstände können eingesammelt und mitgenommen werden, um eine bestimmte Aufgabe zu erfüllen.</p>
-					<p><i class="fas fa-tasks"></i> Die Aufgabenliste zeigt alle Aufgaben an. Ungelöste Aufgaben sind mit einem Fragezeichen markert. Alle gelösten Aufgaben zeigen ein Bild des jeweils gesuchten und eingesammelten Gegenstandes an.</p>
-					<p><i class="far fa-map"></i> Die Karte zeigt alle möglichen Orte an, die die Spielerin / der Spieler erkunden kann, um die Aufgaben zu lösen.</p>
-					<p><i class="far fa-eye"></i> Mit "ansehen" und der Auswahl des zu betrachtenden Gegenstandes, werden Informationen über den gewählte Gegenstand angezeigt.</p>
-					<p><i class="far fa-hand-paper"></i> Mit "nehmen" und der Auswahl des zu nehmenden Gegenstandes, wird der gewählte Gegenstand eingesammelt und die zugehörige Aufgabegelöst.</p>
-					<p><i class="fas fa-bars"></i> Informationen über dieses Spiel sowie die Option, ein neues Spiel zu starten, befinden sich in diesem Dialog.</p>
+					<p>In diesem "Point & Click Adventure"-Spiel geht es darum, Aufgaben zu lösen. 
+						Die Aufgaben bestehen darin, Gegenstände einzusammeln. Die Suche nach diesen Gegenständen, 
+						beginnt die Spielerin / der Spieler, indem sie / er auf der Karte einen Ort auswählt. 
+						Anschließend befindet sich die Spielerin / der Spieler am Ausgangspunkt dieses Ortes und 
+						kann mit Hilfe der Navigationsbuttons den Ort erkunden. In den Ortsszenen können Gegenstände 
+						angezeigt sein. Die Spielerin / der Spieler kann diese Gegenstände anklicken, um über diese 
+						etwas zu erfahren. Bestimmte Gegenstände können eingesammelt und mitgenommen werden, um eine 
+						bestimmte Aufgabe zu erfüllen. Darüber hinaus kann die Spielerin / der Spieler hervorgehobene 
+						Bereiche in der Szene anklicken, um über diesen Informationen angezeigt zu bekommen.</p>
+					<p><i class="fas fa-tasks w3-round"></i> Die Aufgabenliste zeigt alle Aufgaben an. Ungelöste 
+						Aufgaben sind mit einem Fragezeichen markert. Alle gelösten Aufgaben zeigen ein Bild des 
+						jeweils gesuchten und eingesammelten Gegenstandes an.</p>
+					<p><i class="far fa-map w3-round"></i> Die Karte zeigt alle möglichen Orte an, die die 
+						Spielerin / der Spieler erkunden kann, um die Aufgaben zu lösen.</p>
+					<p><i class="far fa-eye w3-round"></i> Mit "ansehen" und der Auswahl des zu betrachtenden 
+						Gegenstandes, werden Informationen über den gewählte Gegenstand angezeigt.</p>
+					<p><i class="far fa-hand-paper w3-round"></i> Mit "nehmen" und der Auswahl des zu nehmenden 
+						Gegenstandes, wird der gewählte Gegenstand eingesammelt und die zugehörige Aufgabe gelöst.</p>
+					<p><i class="fas fa-bars w3-round"></i> Informationen über dieses Spiel sowie die Option, 
+						ein neues Spiel zu starten, befinden sich in diesem Dialog.</p>
 				</div>
 				<footer class="w3-container dialog-footer">
 					<div class="w3-panel w3-bar">

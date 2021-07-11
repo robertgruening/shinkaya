@@ -14,16 +14,19 @@ html, body {
 	height: 100%;
 }
 
-.viewable {
+.mode__default .viewable:hover,
+.mode__view .viewable:hover {
 	cursor: crosshair;
 }
 
-.takable {
+.mode__take .takable:hover {
 	cursor: grab;
 }
 
-.take {
-	cursor: move;
+.mode__default .viewable:hover,
+.mode__view .viewable,
+.mode__take .takable {
+	background-color: rgba(255, 255, 255, 0.5);
 }
 
 #img-view,
@@ -156,17 +159,6 @@ html, body {
 .dialog-footer {
 	border-radius: 0 0 4px 4px;
 	--border-top: 1px solid lightgray;
-}
-
-.view-mode__active #img-view,
-.take-mode__active #img-view {
-	filter: blur(5px);
-}
-
-.view-mode__active .object,
-.view-mode__active .viewable,
-.take-mode__active .takable {
-	background-color: rgba(255, 255, 255, 0.5);
 }
 
 /**********/
