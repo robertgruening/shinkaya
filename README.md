@@ -1,6 +1,11 @@
 # shinkaya
 
 - [Deutsch](#deutsch)
+  - [Spielressourcen](#spielressourcen)
+    - [Szenebild](#szenebild)
+    - [Gegenstandbild](#gegenstandbild)
+    - [Detailbild](#detailbild)
+    - [Konfiguration](#konfiguration)
 - [English](#english)
 
 ## Deutsch
