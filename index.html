@@ -50,11 +50,12 @@
 		</div>
 		<div class="w3-display-container w3-row w3-panel">
 			<div id="panel-actions" class="w3-col s6">
-				<a id="button-open-about" title="Hilfe & Optionen" class="w3-button w3-pale-blue w3-hover-indigo w3-round"><i class="fas fa-bars"></i></a>
-				<a id="button-open-map" title="Karte" class="w3-button w3-pale-blue w3-hover-indigo w3-round"><i class="far fa-map"></i></a>
+				<a id="button-open-menu" title="Menü" class="w3-button w3-pale-blue w3-hover-indigo w3-round"><i class="fas fa-bars"></i></a>
 				<a id="button-open-quests" title="Aufgaben" class="w3-button w3-pale-blue w3-hover-indigo w3-round"><i class="fas fa-tasks"></i></a>
+				<a id="button-open-map" title="Karte" class="w3-button w3-pale-blue w3-hover-indigo w3-round"><i class="far fa-map"></i></a>
 				<a id="button-view" title="ansehen" class="w3-button w3-pale-blue w3-hover-indigo w3-round"><i class="far fa-eye"></i></a>
 				<a id="button-take" title="nehmen" class="w3-button w3-pale-blue w3-hover-indigo w3-round"><i class="far fa-hand-paper"></i></a>
+				<a id="button-dig" title="graben" class="w3-button w3-pale-blue w3-hover-indigo w3-round"><i class="fas fa-magic"></i></a>
 			</div>
 			<div id="panel-item-inventory" class="w3-col s6">
 				<ul id="item-inventory" class="mode__default"></ul>
@@ -62,24 +63,22 @@
 		</div>
 		<div id="modal-quests" class="w3-modal">
 			<div class="w3-modal-content w3-card-4 w3-round">
-				<header class="w3-container w3-display-container dialog-header">
-					<span id="button-close-quests" class="w3-button w3-white w3-hover-indigo w3-display-topright button-close-dialog">&times;</span>
+				<header class="w3-container w3-display-container w3-center dialog-header">
 					<h3>Aufgaben</h3>
 				</header>
 				<div class="w3-container dialog-body">					
 					<ul id="quests"></ul>
 				</div>
 				<footer class="w3-container dialog-footer">
-					<div class="w3-panel w3-bar">
-						<a id="button-ok-quests" title="OK" class="w3-button w3-white w3-hover-indigo w3-round w3-right">OK</a>
+					<div class="w3-bar w3-center">
+						<a id="button-close-quests" title="Schließen" class="w3-button w3-white w3-hover-indigo w3-round">Schließen</a>
 					</div>
 				</footer>
 			</div>
 		</div>
 		<div id="modal-item-info" class="w3-modal">
 			<div class="w3-modal-content w3-card-4 w3-round">
-				<header class="w3-container w3-display-container dialog-header">
-					<span id="button-close-item-info" class="w3-button w3-white w3-hover-indigo w3-display-topright button-close-dialog">&times;</span>
+				<header class="w3-container w3-display-container w3-center dialog-header">
 					<h3>Details</h3>
 				</header>
 				<div class="w3-container dialog-body">
@@ -93,32 +92,30 @@
 					</div>
 				</div>
 				<footer class="w3-container dialog-footer">
-					<div class="w3-panel w3-bar">
-						<a id="button-ok-item-info" title="OK" class="w3-button w3-white w3-hover-indigo w3-round w3-right">OK</a>
+					<div class="w3-bar w3-center">
+						<a id="button-close-item-info" title="Schließen" class="w3-button w3-white w3-hover-indigo w3-round">Schließen</a>
 					</div>
 				</footer>
 			</div>
 		</div>
 		<div id="modal-object-info" class="w3-modal">
 			<div class="w3-modal-content w3-card-4 w3-round">
-				<header class="w3-container w3-display-container dialog-header">
-					<span id="button-close-object-info" class="w3-button w3-white w3-hover-indigo w3-display-topright button-close-dialog">&times;</span>
+				<header class="w3-container w3-display-container w3-center dialog-header">
 					<h3>Details</h3>
 				</header>
 				<div class="w3-container dialog-body">
 					<p id="object-description"></p>
 				</div>
 				<footer class="w3-container dialog-footer">
-					<div class="w3-panel w3-bar">
-						<a id="button-ok-object-info" title="OK" class="w3-button w3-white w3-hover-indigo w3-round w3-right">OK</a>
+					<div class="w3-bar w3-center">
+						<a id="button-close-object-info" title="Schließen" class="w3-button w3-white w3-hover-indigo w3-round">Schließen</a>
 					</div>
 				</footer>
 			</div>
 		</div>
-		<div id="modal-about" class="w3-modal">
+		<div id="modal-help" class="w3-modal">
 			<div class="w3-modal-content w3-card-4 w3-round">
-				<header class="w3-container w3-display-container dialog-header">
-					<span id="button-close-about" class="w3-button w3-white w3-hover-indigo w3-display-topright button-close-dialog">&times;</span>
+				<header class="w3-container w3-display-container w3-center dialog-header">
 					<h3>Erklärung</h3>
 				</header>
 				<div class="w3-container dialog-body">
@@ -126,11 +123,14 @@
 						Die Aufgaben bestehen darin, Gegenstände einzusammeln. Die Suche nach diesen Gegenständen, 
 						beginnt die Spielerin / der Spieler, indem sie / er auf der Karte einen Ort auswählt. 
 						Anschließend befindet sich die Spielerin / der Spieler am Ausgangspunkt dieses Ortes und 
-						kann mit Hilfe der Navigationsbuttons den Ort erkunden. In den Ortsszenen können Gegenstände 
+						kann mit Hilfe der Navigationsbuttons den Ort erkunden. In bestimmten Szenen kann die Spielerin /
+						der Spieler eine Ausgrabung durchführen. In den Ortsszenen können Gegenstände 
 						angezeigt sein. Die Spielerin / der Spieler kann diese Gegenstände anklicken, um über diese 
 						etwas zu erfahren. Bestimmte Gegenstände können eingesammelt und mitgenommen werden, um eine 
 						bestimmte Aufgabe zu erfüllen. Darüber hinaus kann die Spielerin / der Spieler hervorgehobene 
 						Bereiche in der Szene anklicken, um über diesen Informationen angezeigt zu bekommen.</p>
+					<p><i class="fas fa-bars w3-round"></i> Das Hauptmenü ermöglicht, ein neues Spiel zu starten, 
+						die Hilfe einzusehen und sich über das Entwicklungsteam zu informieren.
 					<p><i class="fas fa-tasks w3-round"></i> Die Aufgabenliste zeigt alle Aufgaben an. Ungelöste 
 						Aufgaben sind mit einem Fragezeichen markert. Alle gelösten Aufgaben zeigen ein Bild des 
 						jeweils gesuchten und eingesammelten Gegenstandes an.</p>
@@ -140,28 +140,57 @@
 						Gegenstandes, werden Informationen über den gewählte Gegenstand angezeigt.</p>
 					<p><i class="far fa-hand-paper w3-round"></i> Mit "nehmen" und der Auswahl des zu nehmenden 
 						Gegenstandes, wird der gewählte Gegenstand eingesammelt und die zugehörige Aufgabe gelöst.</p>
-					<p><i class="fas fa-bars w3-round"></i> Informationen über dieses Spiel sowie die Option, 
-						ein neues Spiel zu starten, befinden sich in diesem Dialog.</p>
+					<p><i class="fas fa-magic w3-round"></i> Mit "graben" kann eine Ausgrabung durchgeführt werden.
+						Voraussetzungen sind, dass alle Gegenstände eingesammelt sind und die Szene die Aktion unterstützt.</p>
 				</div>
 				<footer class="w3-container dialog-footer">
-					<div class="w3-panel w3-bar">
-						<a id="button-start" title="neues Spiel starten" class="w3-button w3-white w3-hover-indigo w3-round w3-right">neues Spiel starten</a>
+					<div class="w3-bar w3-center">
+						<a id="button-close-help" title="Schließen" class="w3-button w3-white w3-hover-indigo w3-round">Schließen</a>
 					</div>
 				</footer>
 			</div>
 		</div>
 		<div id="modal-menu" class="w3-modal">
 			<div class="w3-modal-content w3-card-4 w3-round">
-				<header class="w3-container w3-display-container dialog-header">
-					<span id="button-close-about" class="w3-button w3-white w3-hover-indigo w3-display-topright button-close-dialog">&times;</span>
+				<header class="w3-container w3-display-container w3-center dialog-header">
 					<h3>Menü</h3>
 				</header>
 				<div class="w3-container dialog-body">
-					<a id="button-new-game" title="Neues Spiel" class="w3-button w3-white w3-hover-indigo w3-round w3-right">Neues Spiel</a>
-					<a id="button-help" title="Hilfe" class="w3-button w3-white w3-hover-indigo w3-round w3-right">Hilfe</a>
-					<a id="button-about" title="Über" class="w3-button w3-white w3-hover-indigo w3-round w3-right">Über</a>
+					<div class="w3-bar-block">
+						<a id="button-new-game" title="Neues Spiel" class="w3-button w3-bar-item w3-white w3-hover-indigo w3-round w3-center">Neues Spiel</a>
+						<a id="button-open-help" title="Hilfe" class="w3-button w3-bar-item w3-white w3-hover-indigo w3-round w3-center">Hilfe</a>
+						<a id="button-open-about" title="Über" class="w3-button w3-bar-item w3-white w3-hover-indigo w3-round w3-center">Über</a>
+					</div>
 				</div>
 				<footer class="w3-container dialog-footer">
+					<div class="w3-bar w3-center">
+						<a id="button-close-menu" title="Schließen" class="w3-button w3-white w3-hover-indigo w3-round">Schließen</a>
+					</div>
+				</footer>
+			</div>
+		</div>
+		<div id="modal-about" class="w3-modal">
+			<div class="w3-modal-content w3-card-4 w3-round">
+				<header class="w3-container w3-display-container w3-center dialog-header">
+					<h3>Über</h3>
+				</header>
+				<div class="w3-container dialog-body">
+					<h4>Mitwirkende</h4>
+					<ul>
+						<li>Amélie Meichau</li>
+						<li>Jacqueline Thieme</li>
+						<li>Robert Grüning</li>
+					</ul>
+					<h4>Kontakt</h4>
+					<ul>
+						<li><a href="https://github.com/robertgruening/shinkaya">https://github.com/robertgruening/shinkaya</a></li>
+						<li><a href="https://archaeologie-fuerth.de">https://archaeologie-fuerth.de</a></li>
+					</ul>
+				</div>
+				<footer class="w3-container dialog-footer">
+					<div class="w3-bar w3-center">
+						<a id="button-close-about" title="Schließen" class="w3-button w3-white w3-hover-indigo w3-round">Schließen</a>
+					</div>
 				</footer>
 			</div>
 		</div>

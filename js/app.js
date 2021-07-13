@@ -5,32 +5,36 @@ var _viewMode = "default";
 
 $(document).ready(function() {
 
-	$("#button-open-about").click(function() { $("#modal-about").show(); });
+	$("#button-open-menu").click(function() { $("#modal-menu").show(); });
+	$("#button-close-menu").click(function() { $("#modal-menu").hide(); });
+
+	$("#button-open-about").click(function() {
+		$("#modal-menu").hide();
+		$("#modal-about").show();
+	});
 	$("#button-close-about").click(function() { $("#modal-about").hide(); });
-	$("#button-start").click(startNewGame);
+
+	$("#button-open-help").click(function() {
+		$("#modal-menu").hide();
+		$("#modal-help").show();
+	});
+	$("#button-close-help").click(function() { $("#modal-help").hide(); });
+	$("#button-new-game").click(startNewGame);
 
 	$("#button-close-map").click(function() { show(_currentPlace); });
 
 	$("#button-open-quests").click(openQuests);
 	$("#button-close-quests").click(function() { $("#modal-quests").hide(); });
-	$("#button-ok-quests").click(function() { $("#modal-quests").hide(); });
 
 	$("#button-view").click(function() { switchMode("view"); });
 	$("#button-take").click(function() { switchMode("take"); });
+	$("#button-dig").click(function() {  });
 
 	$("#button-close-item-info").click(function() { $("#modal-item-info").hide(); });
-	$("#button-ok-item-info").click(function() { $("#modal-item-info").hide(); });
 
 	$("#button-close-object-info").click(function() { $("#modal-object-info").hide(); });
-	$("#button-ok-object-info").click(function() { $("#modal-object-info").hide(); });
 
-	_foundItemNames = new Array();
-	_currentGame = _config;
-
-	initItemInventory();
-	$("#modal-about").hide();
-	openMap();
-	$("#modal-about").show();
+	initFirstGame();
 });
 
 function switchMode(newMode) {
@@ -78,12 +82,20 @@ function switchMode(newMode) {
 	}
 }
 
+function initFirstGame() {
+	_foundItemNames = new Array();
+	_currentGame = _config;
+
+	initItemInventory();
+	openMap();
+	$("#modal-help").show();
+}
+
 function startNewGame() {
 	_foundItemNames = new Array();
 	_currentGame = _config;
 
 	initItemInventory();
-	$("#modal-about").hide();
 	openMap();
 	openQuests();
 }
@@ -114,6 +126,30 @@ function initItemInventory() {
 		li.append(div);
 
 		$("#item-inventory").append(li);
+	});
+}
+
+function replacePlaceNameInConfig(placeNameToBeReplaced, newPlaceName) {
+	_currentGame.places.forEach((place) => {
+		if (typeof(place.forward) !== "undefined" &&
+			place.forward == placeNameToBeReplaced) {
+			place.forward = newPlaceName;
+		}
+		
+		if (typeof(place.back) !== "undefined" &&
+			place.back == placeNameToBeReplaced) {
+			place.back = newPlaceName;
+		}
+		
+		if (typeof(place.left) !== "undefined" &&
+			place.left == placeNameToBeReplaced) {
+			place.left = newPlaceName;
+		}
+		
+		if (typeof(place.right) !== "undefined" &&
+			place.right == placeNameToBeReplaced) {
+			place.right = newPlaceName;
+		}
 	});
 }
 
@@ -249,6 +285,14 @@ function takeItem(itemName) {
 	$("#item" + itemName).remove();
 	initItemInventory();
 	switchMode("default");
+
+	let currentPlace = findPlaceByName(_currentPlace);
+	currentPlace.items.splice(currentPlace.items.indexOf(itemName), 1);
+
+	if (typeof currentPlace.dig !== "undefined" &&
+		currentPlace.items.length == 0) {
+		enableButtonDig();
+	}
 }
 
 function show(placeName) {
@@ -264,6 +308,7 @@ function show(placeName) {
 	disableButtonGoRight();
 	disableButtonGoLeft();
 	disableButtonGoBack();
+	disableButtonDig();
 
 	var place = findPlaceByName(placeName);
 	_currentPlace = place.name;
@@ -292,6 +337,12 @@ function show(placeName) {
 
 	if (typeof place.objects !== "undefined") {
 		createObjects(place.objects);
+	}
+
+	if (typeof place.dig !== "undefined" &&
+		(typeof place.items === "undefined" ||
+		 place.items.length == 0)) {
+		enableButtonDig();
 	}
 
 	enableButtonOpenMap();
@@ -448,6 +499,23 @@ function disableButtonGoBack() {
 	disableButton($("#button-go-back"));
 }
 
+function enableButtonDig() {
+	$("#button-dig").off("click");
+	$("#button-dig").click(function() { dig(); });
+	setEnabledButtonCss($("#button-dig"));
+}
+
+function disableButtonDig() {
+	disableButton($("#button-dig"));
+}
+
 function goToDirection(direction) {
 	show(findPlaceByName(_currentPlace)[direction]);
+}
+
+function dig() {
+	let currentPlace = findPlaceByName(_currentPlace);
+
+	replacePlaceNameInConfig(currentPlace.name, currentPlace.dig);
+	show(currentPlace.dig);
 }

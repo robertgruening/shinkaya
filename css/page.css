@@ -141,15 +141,23 @@ html, body {
 	color: black;
 }
 
+	.w3-modal-content h1,
+	.w3-modal-content h2,
+	.w3-modal-content h3,
+	.w3-modal-content h4,
+	.w3-modal-content h5 {
+		color: #3f51b5
+	}
+
 	.w3-modal-content i {
 		background-color: white;
-		color: darkblue;
+		color: #3f51b5;
 		padding: 5px;
 	}
 
 .dialog-header {
 	border-radius: 4px 4px 0 0;
-	--border-bottom: 1px solid lightgray;
+	border-bottom: 1px solid #3f51b5;
 }
 
 .dialog-body {
@@ -159,6 +167,7 @@ html, body {
 .dialog-footer {
 	border-radius: 0 0 4px 4px;
 	--border-top: 1px solid lightgray;
+	padding: 16px;
 }
 
 /**********/
