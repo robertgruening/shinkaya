@@ -9,6 +9,14 @@ html, body {
 	padding: 0px;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+	font-family: monospace;
+}
+
 #frame {
 	width: 1000px;
 	height: 100%;
@@ -27,6 +35,10 @@ html, body {
 .mode__view .viewable,
 .mode__take .takable {
 	background-color: rgba(255, 255, 255, 0.5);
+	animation-name: visible-animated;
+	animation-duration: 4s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
 }
 
 #img-view,
@@ -47,25 +59,96 @@ html, body {
 	left: 0;
 }
 
-#button-close-map {
-	margin-top: 20px;
-	margin-right: 20px;
+.w3-button {
+	font-weight: bold;
 }
 
+.w3-button.w3-indigo.w3-hover-white:hover {
+	color: rgb(63, 81, 181) !important; /* w3.css indigo */
+}
+
+#modal-menu .w3-modal-content {
+	width: 250px;
+}
+
+#modal-menu .dialog-body .w3-bar-item {
+	margin-bottom: 10px;
+}
+
+.action-modal {
+	background-color: rgb(76, 175, 80); /* w3.css green */
+}
+
+	.action-modal .dialog-footer .w3-button {
+		background-color: white;
+		color: rgb(76, 175, 80); /* w3.css green */
+	}
+
+	.action-modal .dialog-footer .w3-button:hover {
+		background-color: rgb(0, 150, 136) !important; /* w3.css teal */
+		color: white !important;
+	}
+
+
+.system-modal {
+	background-color: rgb(33, 150, 243); /* w3.css blue */
+}
+
+	.system-modal .dialog-footer .w3-button {
+		background-color: white;
+		color: rgb(33, 150, 243); /* w3.css blue */
+	}
+
+	.system-modal .dialog-footer .w3-button:hover {
+		background-color: rgb(63, 81, 181)!important; /* w3.css indigo */
+		color: white !important;
+	}
+	
 #button-go-forward {
-	margin-top: 20px;
+	margin-top: 60px;
 }
 
 #button-go-right {
-	margin-right: 20px;
+	margin-right: 60px;
 }
 
 #button-go-back {
-	margin-bottom: 20px;
+	margin-bottom: 60px;
 }
 
 #button-go-left {
-	margin-left: 20px;
+	margin-left: 60px;
+}
+
+.scene-navigation--button {
+	background-color: rgb(233, 30, 99); /* w3.css pink */
+	color: white;
+}
+
+.scene-navigation--button:hover {
+	background-color: white !important;
+	color: rgb(233, 30, 99) !important; /* w3.css pink */
+}
+
+.menu-button {
+	background-color: rgb(33, 150, 243); /* w3.css blue */
+	color: white;
+}
+
+.menu-button:hover {
+	background-color: white !important;
+	color: rgb(33, 150, 243) !important; /* w3.css blue */
+}
+
+.action-button {
+	background-color: rgb(76, 175, 80); /* w3.css green */
+	color: white;
+}
+
+.action-button:hover,
+.action-button__active {
+	background-color: white !important;
+	color: rgb(76, 175, 80) !important; /* w3.css green */
 }
 
 #panel-actions,
@@ -136,6 +219,7 @@ html, body {
 	border-radius: 0 4px 0 0;
 }
 
+/*
 .w3-modal-content {
 	background-color: rgba(211, 255, 255, 0.8);
 	color: black;
@@ -154,19 +238,28 @@ html, body {
 		color: #3f51b5;
 		padding: 5px;
 	}
+*/
 
 .dialog-header {
-	border-radius: 4px 4px 0 0;
-	border-bottom: 1px solid #3f51b5;
+	border-radius: 16px 16px 0 0;
+	border-bottom: 1px solid white;
+}
+
+.dialog-header h1,
+.dialog-header h2,
+.dialog-header h3,
+.dialog-header h4,
+.dialog-header h5 {
+	font-weight: bold;
 }
 
 .dialog-body {
 	padding-top: 16px;
 	padding-bottom: 16px;
 }
+
 .dialog-footer {
-	border-radius: 0 0 4px 4px;
-	--border-top: 1px solid lightgray;
+	border-radius: 0 0 16px 16px;
 	padding: 16px;
 }
 
@@ -178,6 +271,14 @@ html, body {
 	font-family: Verdana, Arial;
 	color: #333333;
 }
+
+.map--marker {
+	background-color:rgb(233, 30, 99);
+}
+
+.map--marker:hover {
+	background-color:white;
+}
  
 
 /**************/
@@ -185,3 +286,11 @@ html, body {
 /**************/
 
 
+@keyframes visible-animated {
+	from {
+		background-color: rgba(255, 255, 255, 0.1);
+	}
+	to {
+		background-color: rgba(255, 255, 255, 0.6);
+	}
+}
