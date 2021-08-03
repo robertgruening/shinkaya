@@ -179,13 +179,13 @@ h5 {
 	padding-left: 10px;
 }
 
-#item-image {
+#modal-info__image {
 	width: 400px;
 	height: 300px;
 	border: 1px solid lightgray;
 }
 
-#item-description {
+#modal-info__description {
 	padding-left: 10px;
 	margin-top: 0;
 }
@@ -291,6 +291,6 @@ html, body {
 		background-color: rgba(255, 255, 255, 0.1);
 	}
 	to {
-		background-color: rgba(255, 255, 255, 0.6);
+		background-color: rgba(255, 255, 255, 0.7);
 	}
 }

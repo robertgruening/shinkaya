@@ -92,9 +92,7 @@ $(document).ready(function() {
 	$("#button-take").click(function() { switchActionMode(getActionMode() == "take" ? "default" : "take"); });
 	$("#button-dig").click(function() { dig(); });
 
-	$("#button-close-item-info").click(function() { $("#modal-item-info").hide(); });
-
-	$("#button-close-object-info").click(function() { $("#modal-object-info").hide(); });
+	$("#button-close-info").click(function() { $("#modal-info").hide(); });
 
 	initFirstGame();
 });
@@ -318,18 +316,25 @@ function openQuests() {
 }
 
 function openItemInfo(itemName) {
-	$("#modal-item-info").show();
-	var item = findItemByName(itemName);
-
-	$("#item-image").attr("src", "images/" + item.name + ".jpg");
-	$("#item-description").html(item.description);
+	openInfoDialogue(findItemByName(itemName));
 }
 
 function openObjectInfo(objectName) {
-	$("#modal-object-info").show();
-	var object = findObjectByName(objectName);
+	openInfoDialogue(findObjectByName(objectName));
+}
 
-	$("#object-description").html(object.description);
+function openInfoDialogue(entity) {
+	$("#modal-info__image-column").hide();
+	$("#modal-info__image").attr("src", "");
+
+	$("#modal-info__description").html(entity.description);
+
+	if (typeof(entity.descriptionImage) !== "undefined") {
+		$("#modal-info__image").attr("src", "images/" + entity.descriptionImage);
+		$("#modal-info__image-column").show();
+	}
+
+	$("#modal-info").show();
 }
 
 function takeItem(itemName) {
