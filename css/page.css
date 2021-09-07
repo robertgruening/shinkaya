@@ -17,6 +17,30 @@ h5 {
 	font-family: monospace;
 }
 
+#status-bar {
+	font-size: 1.75em;
+	font-weight: bold;
+	font-family: monospace;
+	margin-top: 20px;
+	margin-right: 20px;
+	color: rgb(255, 193, 7); /* w3.css amber */
+	padding: 2px 10px 2px 10px;
+	background-color: rgba(255, 255, 255, 1);
+	border-radius: 4px;
+}
+
+.popupPoints {
+	position: absolute;
+    display: block !important;
+	font-size: 1.75em;
+	font-weight: bold;
+	font-family: monospace;
+	color: rgb(255, 193, 7); /* w3.css amber */
+	padding: 2px 10px 2px 10px;
+	background-color: rgba(255, 255, 255, 1);
+	border-radius: 4px;
+}
+
 #frame {
 	width: 1000px;
 	height: 100%;
@@ -179,13 +203,15 @@ h5 {
 	padding-left: 10px;
 }
 
-#modal-info__image {
+#modal-item-info__image,
+#modal-object-info__image {
 	width: 400px;
 	height: 300px;
 	border: 1px solid lightgray;
 }
 
-#modal-info__description {
+#modal-item-info__description,
+#modal-object-info__description {
 	padding-left: 10px;
 	margin-top: 0;
 }
@@ -207,7 +233,7 @@ h5 {
 	}
 
 .item-inventory-placeholder {
-	border: 1px solid #ddffff;
+	border: 1px solid white;
 	width: 50px;
 	height: 50px;
 	background-repeat: no-repeat;

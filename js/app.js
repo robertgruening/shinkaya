@@ -4,6 +4,10 @@ var _currentPlace = null;
 var _foundItemNames = new Array();
 var _actionMode = "default";
 var _levelOfDifficulty = "beginner";
+var _countOfExperiencePoints = 0;
+var _openedPlaceNames = new Array();
+var _openedItemNames = new Array();
+var _openedObjectNames = new Array();
 //#endregion
 
 //#region properties
@@ -50,13 +54,64 @@ function setlevelOfDifficulty(levelOfDifficulty) {
 function getLevelOfDifficulty() {
 	return _levelOfDifficulty;
 }
+
+function getCountOfExperiencePoints() {
+	return _countOfExperiencePoints;
+}
+
+function setCountOfExperiencePoints(countOfExperiencePoints) {
+	_countOfExperiencePoints = countOfExperiencePoints;
+	updateLabelCountOfExperiencePoints(_countOfExperiencePoints);
+}
+
+function addCountOfExperiencePoints(countOfExperiencePoints, args) {
+	animateAdditionalCountOfExperiencePoints(countOfExperiencePoints, args);
+	_countOfExperiencePoints += countOfExperiencePoints;
+	updateLabelCountOfExperiencePoints(_countOfExperiencePoints);
+}
+
+function addOpenedPlaceName(placeName) {
+	_openedPlaceNames.push(placeName);
+}
+
+function resetOpenedPlaceNames() {
+	_openedPlaceNames = new Array();
+}
+
+function containsOpenedPlaceName(placeName) {
+	return _openedPlaceNames.includes(placeName);
+}
+
+function addOpenedItemName(itemName) {
+	_openedItemNames.push(itemName);
+}
+
+function resetOpenedItemNames() {
+	_openedItemNames = new Array();
+}
+
+function containsOpenedItemName(itemName) {
+	return _openedItemNames.includes(itemName);
+}
+
+function addOpenedObjectName(objectName) {
+	_openedObjectNames.push(objectName);
+}
+
+function resetOpenedObjectNames() {
+	_openedObjectNames = new Array();
+}
+
+function containsOpenedObjectName(objectName) {
+	return _openedObjectNames.includes(objectName);
+}
 //#endregion
 
 $(document).ready(function() {
-	$("#button-go-forward").click(function() { goToDirection("forward"); });
-	$("#button-go-left").click(function() { goToDirection("left"); });
-	$("#button-go-right").click(function() { goToDirection("right"); });
-	$("#button-go-back").click(function() { goToDirection("back"); });
+	$("#button-go-forward").click(function(e) { goToDirection("forward", { pageX : e.originalEvent.pageX, pageY : e.originalEvent.pageY }); });
+	$("#button-go-left").click(function(e) { goToDirection("left", { pageX : e.originalEvent.pageX, pageY : e.originalEvent.pageY }); });
+	$("#button-go-right").click(function(e) { goToDirection("right", { pageX : e.originalEvent.pageX, pageY : e.originalEvent.pageY }); });
+	$("#button-go-back").click(function(e) { goToDirection("back", { pageX : e.originalEvent.pageX, pageY : e.originalEvent.pageY }); });
 
 	$("#button-open-menu").click(function() { $("#modal-menu").show(); });
 	$("#button-close-menu").click(function() { $("#modal-menu").hide(); });
@@ -92,10 +147,36 @@ $(document).ready(function() {
 	$("#button-take").click(function() { switchActionMode(getActionMode() == "take" ? "default" : "take"); });
 	$("#button-dig").click(function() { dig(); });
 
-	$("#button-close-info").click(function() { $("#modal-info").hide(); });
+	$("#button-close-item-info").click(function() { $("#modal-item-info").hide(); });
+	$("#button-close-object-info").click(function() { $("#modal-object-info").hide(); });
 
 	initFirstGame();
 });
+
+function updateLabelCountOfExperiencePoints(countOfExperiencePoints) {
+	$("#experience-points--value").html(countOfExperiencePoints);
+}
+
+function animateAdditionalCountOfExperiencePoints(countOfExperiencePoints, args) {
+	let additionalExperiencePointsPopup = $("<div></div>");
+	$("body").append(additionalExperiencePointsPopup);
+
+	additionalExperiencePointsPopup.html("+ " + countOfExperiencePoints);
+	additionalExperiencePointsPopup.addClass("popupPoints");
+	
+	let top = typeof(args) === "undefined" ? 0 : args.pageY;
+	let left = typeof(args) === "undefined" ? 0 : args.pageX;
+	
+	additionalExperiencePointsPopup.css("top", (top + 10) + "px");
+	additionalExperiencePointsPopup.css("left", left + "px");
+
+	$(".popupPoints").fadeIn("fast", function() {
+	    $(".popupPoints").fadeOut((4 * 1000), function() {
+    	    $(".popupPoints").remove();
+	    });
+	});
+
+}
 
 function switchActionMode(newActionMode) {
 	// reset view
@@ -117,20 +198,20 @@ function switchActionMode(newActionMode) {
 			 
 		$("#button-view").addClass("action-button__active");
 		$("#view").addClass("mode__view");
-		$(".viewable.item").click(function() { openItemInfo($(this).attr("item-name")); });
-		$(".viewable.object").click(function() { openObjectInfo($(this).attr("object-name")); });
+		$(".viewable.item").click(function(e) { openItemInfo($(this).attr("item-name"), { pageX : e.originalEvent.pageX, pageY : e.originalEvent.pageY }); });
+		$(".viewable.object").click(function(e) { openObjectInfo($(this).attr("object-name"), { pageX : e.originalEvent.pageX, pageY : e.originalEvent.pageY }); });
 		setActionMode("view");
 	}
 	else if (newActionMode == "take") {
 		$("#button-take").addClass("action-button__active");
 		$("#view").addClass("mode__take");
-		$(".takable").click(function() { takeItem($(this).attr("item-name")); });
+		$(".takable").click(function(e) { takeItem($(this).attr("item-name"), { pageX : e.originalEvent.pageX, pageY : e.originalEvent.pageY }); });
 		setActionMode("take");
 	}
 	else {
 		$("#view").addClass("mode__default");
-		$(".viewable.item").click(function() { openItemInfo($(this).attr("item-name")); });
-		$(".viewable.object").click(function() { openObjectInfo($(this).attr("object-name")); });
+		$(".viewable.item").click(function(e) { openItemInfo($(this).attr("item-name"), { pageX : e.originalEvent.pageX, pageY : e.originalEvent.pageY }); });
+		$(".viewable.object").click(function(e) { openObjectInfo($(this).attr("object-name"), { pageX : e.originalEvent.pageX, pageY : e.originalEvent.pageY }); });
 		getActionMode("default");
 	}
 }
@@ -138,6 +219,10 @@ function switchActionMode(newActionMode) {
 function initFirstGame() {
 	initFoundItemName();
 	_currentGame = _config;
+	setCountOfExperiencePoints(0);
+	resetOpenedPlaceNames();
+	resetOpenedItemNames();
+	resetOpenedObjectNames();
 
 	initItemInventory();
 	openMap();
@@ -147,6 +232,10 @@ function initFirstGame() {
 function startNewGame() {
 	initFoundItemName();
 	_currentGame = _config;
+	setCountOfExperiencePoints(0);
+	resetOpenedPlaceNames();
+	resetOpenedItemNames();
+	resetOpenedObjectNames();
 
 	initItemInventory();
 	openMap();
@@ -162,8 +251,8 @@ function initItemInventory() {
 		div.addClass("item-inventory-placeholder");
 
 		if (containsFoundItemByName(item.name)) {
-			div.addClass("w3-pale-blue");
-			div.addClass("w3-border-indigo");
+			div.addClass("w3-amber");
+			div.addClass("w3-border-amber");
 			div.addClass("item");
 			div.addClass("viewable");
 			div.attr({
@@ -172,7 +261,7 @@ function initItemInventory() {
 			});
 		}
 		else {
-			div.addClass("w3-border-pale-blue");
+			div.addClass("w3-border-white");
 		}
 
 		let li = $("<li></li>");
@@ -296,7 +385,8 @@ function openQuests() {
 
 		if (containsFoundItemByName(item.name)) {
 			questImage.attr("src", "images/" + item.name + ".png");
-			questImage.addClass("w3-border-indigo");
+			questImage.addClass("w3-amber");
+			questImage.addClass("w3-border-amber");
 		}
 		else {
 			questImage.attr("src", "images/open-quest.png");
@@ -315,33 +405,66 @@ function openQuests() {
 	});
 }
 
-function openItemInfo(itemName) {
-	openInfoDialogue(findItemByName(itemName));
+function openItemInfo(itemName, args) {
+	openItemInfoDialogue(findItemByName(itemName), args);
+
+	if (containsOpenedItemName(itemName)) {
+		$("#button-take-item").hide();
+	}
+	else {
+		$("#button-take-item").show();
+		$("#button-take-item").click( function(e) {
+			takeItem(itemName, { pageX : e.originalEvent.pageX, pageY : e.originalEvent.pageY });
+			$("#modal-item-info").hide();
+		});
+		addCountOfExperiencePoints(10, args);
+		addOpenedItemName(itemName);
+	}
 }
 
-function openObjectInfo(objectName) {
-	openInfoDialogue(findObjectByName(objectName));
+function openObjectInfo(objectName, args) {
+	openObjectInfoDialogue(findObjectByName(objectName), args);
+
+	if (!containsOpenedObjectName(objectName)) {
+		addCountOfExperiencePoints(10, args);
+		addOpenedObjectName(objectName);
+	}
 }
 
-function openInfoDialogue(entity) {
-	$("#modal-info__image-column").hide();
-	$("#modal-info__image").attr("src", "");
+function openItemInfoDialogue(entity) {
+	$("#modal-item-info__image-column").hide();
+	$("#modal-item-info__image").attr("src", "");
 
-	$("#modal-info__description").html(entity.description);
+	$("#modal-item-info__description").html(entity.description);
 
 	if (typeof(entity.descriptionImage) !== "undefined") {
-		$("#modal-info__image").attr("src", "images/" + entity.descriptionImage);
-		$("#modal-info__image-column").show();
+		$("#modal-item-info__image").attr("src", "images/" + entity.descriptionImage);
+		$("#modal-item-info__image-column").show();
 	}
 
-	$("#modal-info").show();
+	$("#modal-item-info").show();
 }
 
-function takeItem(itemName) {
+function openObjectInfoDialogue(entity) {
+	$("#modal-object-info__image-column").hide();
+	$("#modal-object-info__image").attr("src", "");
+
+	$("#modal-object-info__description").html(entity.description);
+
+	if (typeof(entity.descriptionImage) !== "undefined") {
+		$("#modal-object-info__image").attr("src", "images/" + entity.descriptionImage);
+		$("#modal-object-info__image-column").show();
+	}
+
+	$("#modal-object-info").show();
+}
+
+function takeItem(itemName, args) {
 	addFoundItemName(itemName);
 	$("#item" + itemName).remove();
 	initItemInventory();
 	switchActionMode("default");
+	addCountOfExperiencePoints(20, args);
 
 	let currentPlace = findPlaceByName(_currentPlace);
 	currentPlace.items.splice(currentPlace.items.indexOf(itemName), 1);
@@ -359,7 +482,7 @@ function takeItem(itemName) {
 	}
 }
 
-function show(placeName) {
+function show(placeName, args) {
 	$("#markers").empty();
 	$("#objects").empty();
 	$("#items").empty();
@@ -421,6 +544,11 @@ function show(placeName) {
 		$("#button-dig").show();
 	}
 
+	if (!containsOpenedPlaceName(placeName)) {
+		addCountOfExperiencePoints(5, args);
+		addOpenedPlaceName(placeName);
+	}
+	
 	enableButtonOpenMap();
 	switchActionMode("default");
 }
@@ -505,8 +633,8 @@ function disableButton(button) {
 	button.prop("disabled", true);
 }
 
-function goToDirection(direction) {
-	show(findPlaceByName(_currentPlace)[direction]);
+function goToDirection(direction, args) {
+	show(findPlaceByName(_currentPlace)[direction], args);
 }
 
 function dig() {

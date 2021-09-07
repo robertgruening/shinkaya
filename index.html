@@ -32,11 +32,19 @@
 			<div id="markers" class="w3-display-topleft"></div>
 			<div id="items" class="w3-display-topleft"></div>
 			<div id="objects" class="w3-display-topleft"></div>
+			<div id="status-bar" class="w3-display-topright">
+				<div>
+					<i class="fas fa-bolt"></i>&nbsp;<span id="experience-points--value"></span>
+				</div>
+			</div>
 			<div class="w3-display-topmiddle">
 				<a id="button-go-forward" title="vorwärts" class="w3-button w3-round scene-navigation--button"><i class="fas fa-caret-up"></i></a>
 			</div>
 			<div class="w3-display-left">
 				<a id="button-go-left" title="links" class="w3-button w3-round scene-navigation--button"><i class="fas fa-caret-left"></i></a>
+			</div>
+			<div class="w3-display-middle">
+				<a id="button-dig" title="graben" class="w3-button w3-round action-button"><i class="fas fa-layer-group"></i></a>
 			</div>
 			<div class="w3-display-right">
 				<a id="button-go-right" title="rechts" class="w3-button w3-round scene-navigation--button"><i class="fas fa-caret-right"></i></a>
@@ -55,7 +63,6 @@
 				<a id="button-open-map" title="Karte" class="w3-button w3-round menu-button"><i class="far fa-map"></i></a>
 				<a id="button-view" title="ansehen" class="w3-button w3-round action-button"><i class="far fa-eye"></i></a>
 				<a id="button-take" title="nehmen" class="w3-button w3-round action-button"><i class="far fa-hand-paper"></i></a>
-				<a id="button-dig" title="graben" class="w3-button w3-round action-button"><i class="fas fa-magic"></i></a>
 			</div>
 			<div id="panel-item-inventory" class="w3-col s6">
 				<ul id="item-inventory" class="mode__default"></ul>
@@ -76,24 +83,47 @@
 				</footer>
 			</div>
 		</div>
-		<div id="modal-info" class="w3-modal">
+		<div id="modal-item-info" class="w3-modal">
 			<div class="w3-modal-content w3-card-4 w3-round-xlarge action-modal">
 				<header class="w3-container w3-display-container w3-center dialog-header">
 					<h3>Details</h3>
 				</header>
 				<div class="w3-container dialog-body">
 					<div class="w3-row">
-						<div id="modal-info__image-column" class="w3-col" style="width:400px;">
-							<img id="modal-info__image" class="w3-round"/>
+						<div id="modal-item-info__image-column" class="w3-col" style="width:400px;">
+							<img id="modal-item-info__image" class="w3-round"/>
 						</div>
 						<div class="w3-rest">
-							<p id="modal-info__description"></p>
+							<p id="modal-item-info__description"></p>
 						</div>
 					</div>
 				</div>
 				<footer class="w3-container dialog-footer">
 					<div class="w3-bar w3-center">
-						<a id="button-close-info" title="Schließen" class="w3-button w3-round">SCHLIEßEN</a>
+						<a id="button-take-item" title="Nehmen" class="w3-button w3-round">NEHMEN</a>
+						<a id="button-close-item-info" title="Schließen" class="w3-button w3-round">SCHLIEßEN</a>
+					</div>
+				</footer>
+			</div>
+		</div>
+		<div id="modal-object-info" class="w3-modal">
+			<div class="w3-modal-content w3-card-4 w3-round-xlarge action-modal">
+				<header class="w3-container w3-display-container w3-center dialog-header">
+					<h3>Details</h3>
+				</header>
+				<div class="w3-container dialog-body">
+					<div class="w3-row">
+						<div id="modal-object-info__image-column" class="w3-col" style="width:400px;">
+							<img id="modal-object-info__image" class="w3-round"/>
+						</div>
+						<div class="w3-rest">
+							<p id="modal-object-info__description"></p>
+						</div>
+					</div>
+				</div>
+				<footer class="w3-container dialog-footer">
+					<div class="w3-bar w3-center">
+						<a id="button-close-object-info" title="Schließen" class="w3-button w3-round">SCHLIEßEN</a>
 					</div>
 				</footer>
 			</div>
