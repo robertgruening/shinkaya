@@ -32,9 +32,12 @@
 			<div id="markers" class="w3-display-topleft"></div>
 			<div id="items" class="w3-display-topleft"></div>
 			<div id="objects" class="w3-display-topleft"></div>
-			<div id="status-bar" class="w3-display-topright">
-				<div>
+			<div id="status-bar" class="w3-display-topright w3-bar">
+				<div class="w3-bar-item w3-right">
 					<i class="fas fa-bolt"></i>&nbsp;<span id="experience-points--value"></span>
+				</div>
+				<div class="w3-bar-item w3-right">
+					<i class="fas fa-puzzle-piece"></i>&nbsp;<span id="found-items--value"></span>
 				</div>
 			</div>
 			<div class="w3-display-topmiddle">
@@ -91,10 +94,10 @@
 				<div class="w3-container dialog-body">
 					<div class="w3-row">
 						<div id="modal-item-info__image-column" class="w3-col" style="width:400px;">
-							<img id="modal-item-info__image" class="w3-round"/>
+							<img id="modal-item-info__image" class="w3-round modal__image"/>
 						</div>
 						<div class="w3-rest">
-							<p id="modal-item-info__description"></p>
+							<p id="modal-item-info__description" class="modal__description"></p>
 						</div>
 					</div>
 				</div>
@@ -114,10 +117,10 @@
 				<div class="w3-container dialog-body">
 					<div class="w3-row">
 						<div id="modal-object-info__image-column" class="w3-col" style="width:400px;">
-							<img id="modal-object-info__image" class="w3-round"/>
+							<img id="modal-object-info__image" class="w3-round modal__image"/>
 						</div>
 						<div class="w3-rest">
-							<p id="modal-object-info__description"></p>
+							<p id="modal-object-info__description" class="modal__description"></p>
 						</div>
 					</div>
 				</div>
@@ -134,28 +137,26 @@
 					<h3>Erklärung</h3>
 				</header>
 				<div class="w3-container dialog-body">
-					<p>In diesem "Point & Click Adventure"-Spiel geht es darum, Aufgaben zu lösen. 
-						Die Aufgaben bestehen darin, Gegenstände einzusammeln. Die Suche nach diesen Gegenständen, 
-						beginnt die Spielerin / der Spieler, indem sie / er auf der Karte einen Ort auswählt. 
-						Anschließend befindet sich die Spielerin / der Spieler am Ausgangspunkt dieses Ortes und 
-						kann mit Hilfe der Navigationsbuttons den Ort erkunden. In bestimmten Szenen kann die Spielerin /
-						der Spieler eine Ausgrabung durchführen. In den Ortsszenen können Gegenstände 
-						angezeigt sein. Die Spielerin / der Spieler kann diese Gegenstände anklicken, um über diese 
-						etwas zu erfahren. Bestimmte Gegenstände können eingesammelt und mitgenommen werden, um eine 
-						bestimmte Aufgabe zu erfüllen. Darüber hinaus kann die Spielerin / der Spieler hervorgehobene 
-						Bereiche in der Szene anklicken, um über diesen Informationen angezeigt zu bekommen.</p>
+					<p>In diesem "Point & Click Adventure"-Spiel geht es darum, Gegenstände einzusammeln.
+						Du kannst direkt mit der Suche beginnen, indem du einen beliebigen Ort auf der 
+						Karte anklickst. Erkunde den Ort mit den Navigationsbuttons.</p>
+					<p>Einige Ortsszenen haben Hervorhebungen, die du anklicken kannst, um Informationen 
+						angezeigt zu bekommen. Auch die einzusammelnden Gegenstände sind hervorgehoben.</p>
+					<p>Du kannst in bestimmten Szenen eine Sonderfunktion nutzen, um versteckte Szenen
+						zu öffnen.</p>
+					<p>Während du neue Szenen betrittst, neue Informationen öffnest und Gegenstände einsammelst,
+						bekommst du Punkte. Sobald du alle gesuchten Gegenstände eingesammelt hast, ist das Spiel
+						gewonnen.</p>
 					<p><i class="fas fa-bars w3-round"></i> Das Hauptmenü ermöglicht, ein neues Spiel zu starten, 
 						die Hilfe einzusehen und sich über das Entwicklungsteam zu informieren.
-					<p><i class="fas fa-tasks w3-round"></i> Die Aufgabenliste zeigt alle Aufgaben an. Ungelöste 
-						Aufgaben sind mit einem Fragezeichen markert. Alle gelösten Aufgaben zeigen ein Bild des 
+					<p><i class="fas fa-clipboard-check w3-round"></i> Die Aufgabenliste zeigt alle Aufgaben an. Gelösten Aufgaben zeigen ein Bild des 
 						jeweils gesuchten und eingesammelten Gegenstandes an.</p>
-					<p><i class="far fa-map w3-round"></i> Die Karte zeigt alle möglichen Orte an, die die 
-						Spielerin / der Spieler erkunden kann, um die Aufgaben zu lösen.</p>
+					<p><i class="far fa-map w3-round"></i> Die Karte zeigt alle möglichen Orte an, die du erkunden kannst, um die Aufgaben zu lösen.</p>
 					<p><i class="far fa-eye w3-round"></i> Mit "ansehen" und der Auswahl des zu betrachtenden 
 						Gegenstandes, werden Informationen über den gewählte Gegenstand angezeigt.</p>
 					<p><i class="far fa-hand-paper w3-round"></i> Mit "nehmen" und der Auswahl des zu nehmenden 
 						Gegenstandes, wird der gewählte Gegenstand eingesammelt und die zugehörige Aufgabe gelöst.</p>
-					<p><i class="fas fa-magic w3-round"></i> Mit "graben" kann eine Ausgrabung durchgeführt werden.
+					<p><i class="fas fa-layer-group w3-round"></i> Mit "graben" kannst du eine Grabung durchführen.
 						Voraussetzungen sind, dass alle Gegenstände eingesammelt sind und die Szene die Aktion unterstützt.</p>
 				</div>
 				<footer class="w3-container dialog-footer">
@@ -201,6 +202,29 @@
 				<footer class="w3-container dialog-footer">
 					<div class="w3-bar w3-center">
 						<a id="button-close-about" title="Schließen" class="w3-button w3-round">SCHLIEßEN</a>
+					</div>
+				</footer>
+			</div>
+		</div>
+		<div id="modal-congratulation" class="w3-modal">
+			<div class="w3-modal-content w3-card-4 w3-round-xlarge system-modal">
+				<header class="w3-container w3-display-container w3-center dialog-header">
+					<h3>Gewonnen</h3>
+				</header>
+				<div class="w3-container dialog-body">
+					<div class="w3-row">
+						<div id="modal-congratulation__image-column" class="w3-col" style="width:400px;">
+							<img id="modal-congratulation__image" class="w3-round modal__image"/>
+						</div>
+						<div class="w3-rest">
+							<h3 id="modal-congratulation__title" class="modal__title"></h3>
+							<p id="modal-congratulation__description" class="modal__description"></p>
+						</div>
+					</div>
+				</div>
+				<footer class="w3-container dialog-footer">
+					<div class="w3-bar w3-center">
+						<a id="button-close-congratulation" title="Schließen" class="w3-button w3-round">SCHLIEßEN</a>
 					</div>
 				</footer>
 			</div>

@@ -59,6 +59,10 @@ function getCountOfExperiencePoints() {
 	return _countOfExperiencePoints;
 }
 
+function initCountOfExperiencePoints() {
+	setCountOfExperiencePoints(0);
+}
+
 function setCountOfExperiencePoints(countOfExperiencePoints) {
 	_countOfExperiencePoints = countOfExperiencePoints;
 	updateLabelCountOfExperiencePoints(_countOfExperiencePoints);
@@ -74,7 +78,7 @@ function addOpenedPlaceName(placeName) {
 	_openedPlaceNames.push(placeName);
 }
 
-function resetOpenedPlaceNames() {
+function initOpenedPlaceNames() {
 	_openedPlaceNames = new Array();
 }
 
@@ -86,7 +90,7 @@ function addOpenedItemName(itemName) {
 	_openedItemNames.push(itemName);
 }
 
-function resetOpenedItemNames() {
+function initOpenedItemNames() {
 	_openedItemNames = new Array();
 }
 
@@ -98,7 +102,7 @@ function addOpenedObjectName(objectName) {
 	_openedObjectNames.push(objectName);
 }
 
-function resetOpenedObjectNames() {
+function initOpenedObjectNames() {
 	_openedObjectNames = new Array();
 }
 
@@ -149,12 +153,17 @@ $(document).ready(function() {
 
 	$("#button-close-item-info").click(function() { $("#modal-item-info").hide(); });
 	$("#button-close-object-info").click(function() { $("#modal-object-info").hide(); });
+	$("#button-close-congratulation").click(function() { $("#modal-congratulation").hide(); });
 
 	initFirstGame();
 });
 
 function updateLabelCountOfExperiencePoints(countOfExperiencePoints) {
 	$("#experience-points--value").html(countOfExperiencePoints);
+}
+
+function updateLabelCountOfFoundItems() {
+	$("#found-items--value").html(getFoundItemName().length + "/" + _currentGame.items.length);
 }
 
 function animateAdditionalCountOfExperiencePoints(countOfExperiencePoints, args) {
@@ -175,7 +184,6 @@ function animateAdditionalCountOfExperiencePoints(countOfExperiencePoints, args)
     	    $(".popupPoints").remove();
 	    });
 	});
-
 }
 
 function switchActionMode(newActionMode) {
@@ -217,12 +225,15 @@ function switchActionMode(newActionMode) {
 }
 
 function initFirstGame() {
+	_currentGame = new Object();
+	$.extend(true, _currentGame, _config);
+	console.log(_currentGame);
 	initFoundItemName();
-	_currentGame = _config;
-	setCountOfExperiencePoints(0);
-	resetOpenedPlaceNames();
-	resetOpenedItemNames();
-	resetOpenedObjectNames();
+	initOpenedPlaceNames();
+	initOpenedItemNames();
+	initOpenedObjectNames();
+	initCountOfExperiencePoints();
+	updateLabelCountOfFoundItems();
 
 	initItemInventory();
 	openMap();
@@ -230,12 +241,15 @@ function initFirstGame() {
 }
 
 function startNewGame() {
+	_currentGame = new Object();
+	$.extend(true, _currentGame, _config);
+	console.log(_currentGame);
 	initFoundItemName();
-	_currentGame = _config;
-	setCountOfExperiencePoints(0);
-	resetOpenedPlaceNames();
-	resetOpenedItemNames();
-	resetOpenedObjectNames();
+	initOpenedPlaceNames();
+	initOpenedItemNames();
+	initOpenedObjectNames();
+	initCountOfExperiencePoints();
+	updateLabelCountOfFoundItems();
 
 	initItemInventory();
 	openMap();
@@ -352,19 +366,32 @@ function openMap() {
 	_currentGame.places.forEach(function(place, index) {
 		if (typeof place.position !== "undefined") {
 			let radius = 15;
-			let div = $("<div></div>");
-			div.addClass("w3-display-topleft");
-			div.addClass("w3-circle");
-			div.addClass("map--marker");
-			div.css({
+			let marker = $("<div></div>");
+			marker.addClass("w3-display-topleft");
+			marker.addClass("w3-circle");
+			marker.addClass("map--marker");
+			marker.css({
 				"margin-top": place.position.top - radius,
 				"margin-left": place.position.left - radius,
 				"width": (2 * radius) + "px",
 				"height": (2 * radius) + "px"
 			});
-			div.attr("title", place.title);
-			div.click(function() { show(place.name); });
-			$("#markers").append(div);
+			marker.attr("title", place.title);
+			marker.click(function() { show(place.name); });
+			$("#markers").append(marker);
+			
+			let tooltip = $("<div></div>");
+			tooltip.addClass("w3-display-topleft");
+			tooltip.addClass("w3-round");
+			tooltip.addClass("map--marker-tooltip");
+			tooltip.css({
+				"margin-top": place.position.top + radius + 5,
+				"margin-left": place.position.left - radius
+			});
+			tooltip.attr("title", place.title);
+			tooltip.html(place.title);
+			tooltip.click(function() { show(place.name); });
+			$("#markers").append(tooltip);
 		}
 	});
 }
@@ -389,7 +416,7 @@ function openQuests() {
 			questImage.addClass("w3-border-amber");
 		}
 		else {
-			questImage.attr("src", "images/open-quest.png");
+			//questImage.attr("src", "images/open-quest.png");
 			questImage.addClass("w3-border-white");
 		}
 
@@ -407,18 +434,21 @@ function openQuests() {
 
 function openItemInfo(itemName, args) {
 	openItemInfoDialogue(findItemByName(itemName), args);
-
-	if (containsOpenedItemName(itemName)) {
-		$("#button-take-item").hide();
+	
+	if (!containsOpenedItemName(itemName)) {
+		addCountOfExperiencePoints(10, args);
+		addOpenedItemName(itemName);
 	}
-	else {
+	
+	$("#button-take-item").hide();
+	$("#button-take-item").off("click");
+
+	if (!containsFoundItemByName(itemName)) {
 		$("#button-take-item").show();
 		$("#button-take-item").click( function(e) {
 			takeItem(itemName, { pageX : e.originalEvent.pageX, pageY : e.originalEvent.pageY });
 			$("#modal-item-info").hide();
 		});
-		addCountOfExperiencePoints(10, args);
-		addOpenedItemName(itemName);
 	}
 }
 
@@ -461,6 +491,7 @@ function openObjectInfoDialogue(entity) {
 
 function takeItem(itemName, args) {
 	addFoundItemName(itemName);
+	updateLabelCountOfFoundItems();
 	$("#item" + itemName).remove();
 	initItemInventory();
 	switchActionMode("default");
@@ -479,6 +510,13 @@ function takeItem(itemName, args) {
 	}
 	else {
 		$("#button-take").show();
+	}
+	
+	if (getFoundItemName().length == _currentGame.items.length) {
+		$("#modal-congratulation__title").html(_currentGame.congratulation.title);
+		$("#modal-congratulation__image").attr("src", "images/" + _currentGame.congratulation.image);
+		$("#modal-congratulation__description").html(_currentGame.congratulation.text);
+		$("#modal-congratulation").show();
 	}
 }
 
