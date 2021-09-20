@@ -112,6 +112,8 @@ function containsOpenedObjectName(objectName) {
 //#endregion
 
 $(document).ready(function() {
+	resizeView();
+
 	$("#button-go-forward").click(function(e) { goToDirection("forward", { pageX : e.originalEvent.pageX, pageY : e.originalEvent.pageY }); });
 	$("#button-go-left").click(function(e) { goToDirection("left", { pageX : e.originalEvent.pageX, pageY : e.originalEvent.pageY }); });
 	$("#button-go-right").click(function(e) { goToDirection("right", { pageX : e.originalEvent.pageX, pageY : e.originalEvent.pageY }); });
@@ -157,6 +159,35 @@ $(document).ready(function() {
 
 	initFirstGame();
 });
+
+function resizeView() {
+	let maxHeight = $(window).height() -
+		$("#container-bottom").outerHeight(true) -
+		$("#container-scene-description").outerHeight(true);
+	
+	let maxWidth = $(window).width();
+	
+	if (getResolution(maxWidth, maxHeight) <= getDefaultResolution()) {
+		if (getWidthByHeightAndResolution(maxHeight, getDefaultResolution()) >= maxWidth) {
+			$("#view").width(maxWidth);
+			$("#view").height(getHeightByWidthAndResolution(maxWidth, getDefaultResolution()));
+		}
+		else {
+			$("#view").width(getWidthByHeightAndResolution(maxHeight, getDefaultResolution()));
+			$("#view").height(maxHeight);
+		}
+	}
+	else if (getResolution(maxWidth, maxHeight) > getDefaultResolution()) {
+		if (getHeightByWidthAndResolution(maxWidth, getDefaultResolution()) >= maxHeight) {
+			$("#view").width(getWidthByHeightAndResolution(maxHeight, getDefaultResolution()));
+			$("#view").height(maxHeight);
+		}
+		else {
+			$("#view").width(maxWidth);
+			$("#view").height(getHeightByWidthAndResolution(maxWidth, getDefaultResolution()));
+		}
+	}
+}
 
 function updateLabelCountOfExperiencePoints(countOfExperiencePoints) {
 	$("#experience-points--value").html(countOfExperiencePoints);
@@ -227,7 +258,6 @@ function switchActionMode(newActionMode) {
 function initFirstGame() {
 	_currentGame = new Object();
 	$.extend(true, _currentGame, _config);
-	console.log(_currentGame);
 	initFoundItemName();
 	initOpenedPlaceNames();
 	initOpenedItemNames();
@@ -243,7 +273,6 @@ function initFirstGame() {
 function startNewGame() {
 	_currentGame = new Object();
 	$.extend(true, _currentGame, _config);
-	console.log(_currentGame);
 	initFoundItemName();
 	initOpenedPlaceNames();
 	initOpenedItemNames();
@@ -371,8 +400,8 @@ function openMap() {
 			marker.addClass("w3-circle");
 			marker.addClass("map--marker");
 			marker.css({
-				"margin-top": place.position.top - radius,
-				"margin-left": place.position.left - radius,
+				"margin-top": ((place.position.top / getDefaultHeight()) * $("#view").height()) - radius,
+				"margin-left": ((place.position.left / getDefaultWidth()) * $("#view").width()) - radius,
 				"width": (2 * radius) + "px",
 				"height": (2 * radius) + "px"
 			});
@@ -385,8 +414,8 @@ function openMap() {
 			tooltip.addClass("w3-round");
 			tooltip.addClass("map--marker-tooltip");
 			tooltip.css({
-				"margin-top": place.position.top + radius + 5,
-				"margin-left": place.position.left - radius
+				"margin-top": ((place.position.top / getDefaultHeight()) * $("#view").height()) + radius + 5,
+				"margin-left": ((place.position.left / getDefaultWidth()) * $("#view").width()) - radius
 			});
 			tooltip.attr("title", place.title);
 			tooltip.html(place.title);
@@ -416,7 +445,6 @@ function openQuests() {
 			questImage.addClass("w3-border-amber");
 		}
 		else {
-			//questImage.attr("src", "images/open-quest.png");
 			questImage.addClass("w3-border-white");
 		}
 
@@ -543,6 +571,8 @@ function show(placeName, args) {
 	else {
 		$("#scene-description").html(place.description);
 	}
+	
+	resizeView();
 
 	$("#img-view").attr("src", "images/" + place.name + ".jpg");
 
@@ -615,8 +645,8 @@ function createItem(itemName) {
 	img.addClass("viewable");
 	img.addClass("takable");
 	img.css({
-		"margin-top": item.top - height / 2,
-		"margin-left": item.left - width / 2,
+		"margin-top": ((item.top / getDefaultHeight()) * $("#view").height()) - height / 2,
+		"margin-left": ((item.left / getDefaultWidth()) * $("#view").width()) - width / 2,
 		"width": width,
 		"height": height
 	});
@@ -642,8 +672,8 @@ function createObject(objectName) {
 	div.addClass("object");
 	div.addClass("viewable");
 	div.css({
-		"margin-top": object.top - height / 2,
-		"margin-left": object.left - width / 2,
+		"margin-top": ((object.top / getDefaultHeight()) * $("#view").height()) - height / 2,
+		"margin-left": ((object.left / getDefaultWidth()) * $("#view").width()) - width / 2,
 		"width": width,
 		"height": height
 	});
